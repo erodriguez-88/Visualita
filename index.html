@@ -185,6 +185,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .tc-dot-color:hover{transform:none}
 .tc-empty{font-family:var(--display);font-style:italic;font-size:15px;color:rgba(42,30,20,.45)}
 .telas-foot{text-align:center;font-family:var(--display);font-style:italic;font-size:15px;color:rgba(42,30,20,.5);padding:36px 20px 0;max-width:600px;margin:0 auto}
+.tc-name{cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.tc-name::after{content:"ℹ";font-size:13px;opacity:.35;font-style:normal}
+
+/* MODAL DESCRIPCIÓN TELA */
+.telas-modal{position:fixed;inset:0;z-index:500;background:rgba(26,20,14,.7);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s var(--ease);backdrop-filter:blur(6px)}
+.telas-modal.show{opacity:1;pointer-events:auto}
+.telas-modal-inner{background:var(--bone);border-radius:8px;padding:36px 32px;max-width:480px;width:calc(100% - 40px);position:relative;text-align:center}
+.telas-modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:background .2s}
+.telas-modal-close:hover{background:var(--sand)}
+.telas-modal-close svg{width:16px;height:16px;stroke:var(--ink);stroke-width:1.8;fill:none}
+.telas-modal-nombre{font-family:var(--display);font-style:italic;font-size:32px;color:var(--ink);margin-bottom:14px}
+.telas-modal-desc{font-family:var(--display);font-style:italic;font-size:17px;color:rgba(42,30,20,.72);line-height:1.7}
 
 /* MEDIDAS */
 .med-w{max-width:900px;margin:0 auto;padding:0 20px}
@@ -383,25 +395,14 @@ footer a{color:inherit;border-bottom:1px solid rgba(245,239,230,.3)}
 
 <!-- TELAS -->
 <section id="telas" style="padding-top:calc(var(--nav) + 60px);background:var(--bone);padding-bottom:80px">
-  <div class="sec-head"><div class="kicker">— Materiales —</div><h2 class="sec-t">Nuestras <em>telas</em></h2><p class="sec-s">Consultá disponibilidad de tonos por WhatsApp.</p></div>
-  <div class="tg">
-    <div class="tc">
-      <div class="tc-name">Plizada</div>
-      <div class="tc-desc">Textura plisada con movimiento metalizado.</div>
-      <div class="tc-dots">
-        <button class="tc-dot" onclick="abrirTono('assets/telas/plizada/cuatro-colores.jpg','Plizada · Paleta')"><span class="tc-dot-img"><img src="assets/telas/plizada/cuatro-colores.jpg" alt="Paleta"/></span><span class="tc-dot-label">Paleta</span></button>
-        <button class="tc-dot" onclick="abrirTono('assets/telas/plizada/modelo-vino.jpg','Plizada · Vino')"><span class="tc-dot-img"><img src="assets/telas/plizada/modelo-vino.jpg" alt="Vino"/></span><span class="tc-dot-label">Vino</span></button>
-        <button class="tc-dot" onclick="abrirTono('assets/telas/plizada/terracota-look.jpg','Plizada · Terracota')"><span class="tc-dot-img"><img src="assets/telas/plizada/terracota-look.jpg" alt="Terracota"/></span><span class="tc-dot-label">Terracota</span></button>
-        <button class="tc-dot" onclick="abrirTono('assets/telas/plizada/verde-musgo.jpg','Plizada · Verde musgo')"><span class="tc-dot-img"><img src="assets/telas/plizada/verde-musgo.jpg" alt="Verde musgo"/></span><span class="tc-dot-label">V. Musgo</span></button>
-        <button class="tc-dot" onclick="abrirTono('assets/telas/plizada/azul.jpg','Plizada · Azul')"><span class="tc-dot-img"><img src="assets/telas/plizada/azul.jpg" alt="Azul"/></span><span class="tc-dot-label">Azul</span></button>
-      </div>
-    </div>
-    <div class="tc"><div class="tc-name">Manta sedada</div><div class="tc-desc">Caída elegante y brillo sutil.</div><div class="tc-dots"><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#B5522A"></span><span class="tc-dot-label">Terracota</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#2A6B55"></span><span class="tc-dot-label">Esmeralda</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#1C1C1C"></span><span class="tc-dot-label">Negro</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#7B2A42"></span><span class="tc-dot-label">Vino</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#D4C29A"></span><span class="tc-dot-label">Champagne</span></button></div></div>
-    <div class="tc"><div class="tc-name">Lino</div><div class="tc-desc">Natural, fresco y transpirable.</div><div class="tc-dots"><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#C4A882"></span><span class="tc-dot-label">Tierra</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#E8D5A3;border-color:rgba(42,30,20,.15)!important"></span><span class="tc-dot-label">Amarillo</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#2A6B55"></span><span class="tc-dot-label">Esmeralda</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#B8C96E"></span><span class="tc-dot-label">Pera</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#1C1C1C"></span><span class="tc-dot-label">Negro</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#7B2A42"></span><span class="tc-dot-label">Vino</span></button></div></div>
-    <div class="tc"><div class="tc-name">Manta india</div><div class="tc-desc">Textura artesanal y ligera.</div><div class="tc-dots"><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#D4874A"></span><span class="tc-dot-label">Cálidos</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#7AC4A2"></span><span class="tc-dot-label">Menta</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#D91E8C"></span><span class="tc-dot-label">Fucsia</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#F5ECD5;border-color:rgba(42,30,20,.15)!important"></span><span class="tc-dot-label">Blanco</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#5AB8CC"></span><span class="tc-dot-label">Turquesa</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#1C1C1C"></span><span class="tc-dot-label">Negro</span></button></div></div>
-    <div class="tc"><div class="tc-name">Manta</div><div class="tc-desc">Algodón con cuerpo y caída natural.</div><div class="tc-dots"><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#F0ECE4;border-color:rgba(42,30,20,.15)!important"></span><span class="tc-dot-label">Hueso</span></button><button class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:#7B2A42"></span><span class="tc-dot-label">Vino</span></button></div></div>
+  <div class="sec-head">
+    <div class="kicker">— Materiales —</div>
+    <h2 class="sec-t">Nuestras <em>telas</em></h2>
+    <p class="sec-s">Todos nuestros diseños se confeccionan bajo pedido en la tela seleccionada y en el color que necesites.</p>
   </div>
-  <p class="telas-foot">Consulte por todos los tonos disponibles vía WhatsApp.</p>
+  <div class="tg" id="telasGrid">
+    <!-- Se carga dinámicamente desde Google Sheets -->
+  </div>
 </section>
 
 <!-- LIGHTBOX -->
@@ -521,7 +522,8 @@ const TABS = {
   colecciones: 'colecciones',
   gala: 'gala',
   semiformal: 'semiformal',
-  boho: 'boho'
+  boho: 'boho',
+  telas: 'Telas'
 };
 
 // ============================================================
@@ -567,7 +569,7 @@ function parseLine(line){
 // ============================================================
 // ESTADO
 // ============================================================
-let DATA = { colecciones:{}, gala:[], semiformal:[], boho:[] };
+let DATA = { colecciones:{}, gala:[], semiformal:[], boho:[], telas:[] };
 let catActual = 'gala', filtro = 'Todas', pfilt = [];
 
 // ============================================================
@@ -575,11 +577,12 @@ let catActual = 'gala', filtro = 'Todas', pfilt = [];
 // ============================================================
 async function cargarDatos(){
   try {
-    const [rCols, rGala, rSF, rBoho] = await Promise.all([
+    const [rCols, rGala, rSF, rBoho, rTelas] = await Promise.all([
       fetch(csvUrl(TABS.colecciones)).then(r=>r.text()),
       fetch(csvUrl(TABS.gala)).then(r=>r.text()),
       fetch(csvUrl(TABS.semiformal)).then(r=>r.text()),
-      fetch(csvUrl(TABS.boho)).then(r=>r.text())
+      fetch(csvUrl(TABS.boho)).then(r=>r.text()),
+      fetch(csvUrl(TABS.telas)).then(r=>r.text())
     ]);
 
     // Colecciones
@@ -592,7 +595,11 @@ async function cargarDatos(){
     DATA.semiformal= parseCSV(rSF).filter(r=>r.nombre && r.activo!=='no');
     DATA.boho      = parseCSV(rBoho).filter(r=>r.nombre && r.activo!=='no');
 
+    // Telas — filtrar activas
+    DATA.telas     = parseCSV(rTelas).filter(r=>r.nombre && r.activo!=='no');
+
     aplicarColecciones();
+    renderTelas();
     document.getElementById('loader').classList.add('hidden');
   } catch(e){
     console.error('Error cargando Sheet:', e);
@@ -722,10 +729,73 @@ function cerrarTono(e){
   document.getElementById('lbx').classList.remove('show');
   document.body.style.overflow='';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarTono()});
+
+// ============================================================
+// TELAS (dinámicas desde Google Sheets)
+// ============================================================
+function escAttr(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,"\\'");
+}
+function renderTelas(){
+  const grid = document.getElementById('telasGrid');
+  if(!grid) return;
+  grid.innerHTML = DATA.telas.map(t=>{
+    const nombre = t.nombre||'';
+    const desc = t.descripcion||'';
+    const dots = [];
+    for(let n=1;n<=10;n++){
+      const label = (t['c'+n+'_label']||'').trim();
+      const valor = (t['c'+n+'_valor']||'').trim();
+      if(!label && !valor) continue;
+      if(valor.startsWith('#')){
+        dots.push(`<div class="tc-dot tc-dot-color"><span class="tc-dot-img" style="background:${valor}"></span><span class="tc-dot-label">${label}</span></div>`);
+      } else if(valor.startsWith('http')){
+        const full = driveImg(valor);
+        const thumb = driveImg(valor,'w400');
+        dots.push(`<button class="tc-dot" onclick="abrirTono('${escAttr(full)}','${escAttr(nombre)} · ${escAttr(label)}')"><span class="tc-dot-img"><img src="${thumb}" loading="lazy"/></span><span class="tc-dot-label">${label}</span></button>`);
+      }
+    }
+    const dotsHtml = dots.length
+      ? `<div class="tc-dots">${dots.join('')}</div>`
+      : `<p class="tc-empty">Tonos disponibles por consulta</p>`;
+    return `<div class="tc">
+      <div class="tc-name" onclick="abrirDescTela('${escAttr(nombre)}','${escAttr(desc)}')">${nombre}</div>
+      ${desc?`<div class="tc-desc">${desc}</div>`:''}
+      ${dotsHtml}
+    </div>`;
+  }).join('');
+}
+function abrirDescTela(nombre, desc){
+  document.getElementById('telasModalNombre').textContent = nombre;
+  document.getElementById('telasModalDesc').textContent = desc;
+  document.getElementById('telasModal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function cerrarDescTela(e){
+  if(e && e.target.closest('.telas-modal-inner') && !e.target.closest('.telas-modal-close')) return;
+  document.getElementById('telasModal').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    cerrarTono();
+    cerrarDescTela();
+  }
+});
 
 // Arrancar
 cargarDatos();
 </script>
+
+<!-- MODAL DESCRIPCIÓN TELA -->
+<div class="telas-modal" id="telasModal" onclick="cerrarDescTela(event)">
+  <div class="telas-modal-inner">
+    <button class="telas-modal-close" onclick="cerrarDescTela()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="telas-modal-nombre" id="telasModalNombre"></div>
+    <div class="telas-modal-desc" id="telasModalDesc"></div>
+  </div>
+</div>
 </body>
 </html>
