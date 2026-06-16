@@ -179,7 +179,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .tc-dot:hover{transform:translateY(-2px)}
 .tc-dot-img{width:54px;height:54px;border-radius:50%;overflow:hidden;background:var(--sand);box-shadow:0 2px 6px rgba(42,30,20,.08);transition:box-shadow .25s var(--ease);border:1.5px solid transparent}
 .tc-dot:hover .tc-dot-img{box-shadow:0 4px 12px rgba(42,30,20,.18);border-color:var(--sage)}
-.tc-dot-img img{width:100%;height:100%;object-fit:cover}
+.tc-dot-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:50%}
 .tc-dot-label{font-size:10px;letter-spacing:.15em;color:rgba(42,30,20,.55);text-transform:uppercase}
 .tc-dot-color .tc-dot-img{border:1.5px solid rgba(42,30,20,.1)}
 .tc-dot-color:hover{transform:none}
@@ -523,7 +523,8 @@ const TABS = {
   gala: 'gala',
   semiformal: 'semiformal',
   boho: 'boho',
-  telas: 'Telas'
+  telas: 'Telas',
+  faq: 'FAQ'
 };
 
 // ============================================================
@@ -569,7 +570,7 @@ function parseLine(line){
 // ============================================================
 // ESTADO
 // ============================================================
-let DATA = { colecciones:{}, gala:[], semiformal:[], boho:[], telas:[] };
+let DATA = { colecciones:{}, gala:[], semiformal:[], boho:[], telas:[], faq:[] };
 let catActual = 'gala', filtro = 'Todas', pfilt = [];
 
 // ============================================================
@@ -577,12 +578,13 @@ let catActual = 'gala', filtro = 'Todas', pfilt = [];
 // ============================================================
 async function cargarDatos(){
   try {
-    const [rCols, rGala, rSF, rBoho, rTelas] = await Promise.all([
+    const [rCols, rGala, rSF, rBoho, rTelas, rFaq] = await Promise.all([
       fetch(csvUrl(TABS.colecciones)).then(r=>r.text()),
       fetch(csvUrl(TABS.gala)).then(r=>r.text()),
       fetch(csvUrl(TABS.semiformal)).then(r=>r.text()),
       fetch(csvUrl(TABS.boho)).then(r=>r.text()),
-      fetch(csvUrl(TABS.telas)).then(r=>r.text())
+      fetch(csvUrl(TABS.telas)).then(r=>r.text()),
+      fetch(csvUrl(TABS.faq)).then(r=>r.text())
     ]);
 
     // Colecciones
@@ -598,8 +600,12 @@ async function cargarDatos(){
     // Telas — filtrar activas
     DATA.telas     = parseCSV(rTelas).filter(r=>r.nombre && r.activo!=='no');
 
+    // FAQ — filtrar activas
+    DATA.faq       = parseCSV(rFaq).filter(r=>r.pregunta && r.activo!=='no');
+
     aplicarColecciones();
     renderTelas();
+    renderFAQ();
     document.getElementById('loader').classList.add('hidden');
   } catch(e){
     console.error('Error cargando Sheet:', e);
@@ -764,6 +770,18 @@ function renderTelas(){
       ${dotsHtml}
     </div>`;
   }).join('');
+}
+function escHtml(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function renderFAQ(){
+  const cont = document.querySelector('.faq-l');
+  if(!cont || !DATA.faq.length) return;
+  cont.innerHTML = DATA.faq.map(f=>`
+    <div class="fi">
+      <button class="fq" onclick="this.closest('.fi').classList.toggle('open')">${escHtml(f.pregunta)}<span class="ico">+</span></button>
+      <div class="fa"><div class="fai">${escHtml(f.respuesta)}</div></div>
+    </div>`).join('');
 }
 function abrirDescTela(nombre, desc){
   document.getElementById('telasModalNombre').textContent = nombre;
